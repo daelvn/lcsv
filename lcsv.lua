@@ -88,6 +88,7 @@ function lcsv.readAll (csvh, hasHeader)
   local lines = toLines (csvh:read "*a")
   return lcsv.parseAll (lines, hasHeader)
 end
+
 -- Escaping
 function lcsv.escape (str)
   if str:find '[,"]' then return '"' .. str:gsub ('"', '""') .. '"' end
