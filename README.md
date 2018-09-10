@@ -20,6 +20,8 @@ It will parse a single line of CSV into a table, optionally with a header.
 #### `lcsv.parseAll (table:lines, [boolean:hasHeader]) -> table:csvt, [table:header]`
 It parses a table of CSV lines into a table, and if specified, will use the first line as header.
 ### Reading
+#### `lcsv.readHeader (File:csvh, [boolean:move]) -> table:header`
+Reads the first line as header. If `move` is set to true, it will go back to the original position, otherwise sets the cursor at the next line of the header. 
 #### `lcsv.readLine (File:csvh, [table:header]) -> table:csvl`
 It will read the next line in the file handle and parse it into a CSV line.
 #### `lcsv.readAll (File:csvh, [boolean:hasHeader]) -> table:csvt, [table:header]`

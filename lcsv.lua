@@ -27,6 +27,7 @@ local function toLines (str)
       return ""
    end
    helper ((str:gsub ("(.-)\r?\n", helper)))
+   for i,v in ipairs (lines) do if v == "\n" then lines [i] = nil end end
    return lines
 end
 lcsv.mapLineToHeader = mapLineToHeader
@@ -80,6 +81,13 @@ function lcsv.parseAll (lines, hasHeader)
 end
 
 -- Reading
+function lcsv.readHeader (csvh, doMove)
+  local cur = csvh:seek "cur"
+  csvh:seek "set"
+  local header = lcsv.parseLine (csvh:read "*l")
+  if not doMove then csvh:seek ("set", cur) end
+  return header
+end
 function lcsv.readLine (csvh, header)
   local line = csvh:read "*l"
   return lcsv.parseLine (line, header)
@@ -91,13 +99,15 @@ end
 
 -- Escaping
 function lcsv.escape (str)
-  if str:find '[,"]' then return '"' .. str:gsub ('"', '""') .. '"' end
+  if str:find '[,"]' then return '"' .. str:gsub ('"', '""') .. '"' else return str end
 end
 
 -- To CSV
 function lcsv.newCsvLine (...)
   local result = ""
-  for _,str in ipairs {...} do result = result .. "," .. lcsv.escape (str) end
+  for _,str in ipairs {...} do
+    result = result .. "," .. lcsv.escape (tostring (str))
+  end
   return result:sub (2)
 end
 function lcsv.newCsv (t)
@@ -105,13 +115,14 @@ function lcsv.newCsv (t)
   for _,line in ipairs (t) do
     result = result .. lcsv.newCsvLine (table.unpack (line)) .. "\n"
   end
+  result = result:gsub ("\n$", "")
   return result
 end
 function lcsv.toCsvLine (csvl, header)
   local result = ""
   if header then csvl = mapHeaderToLine (csvl, header) end
   for _,field in ipairs (csvl) do
-    result = result .. "," .. lcsv.escape (field)
+    result = result .. "," .. lcsv.escape (tostring (field))
   end
   return result:sub (2)
 end
@@ -132,10 +143,10 @@ function lcsv.writeLine (csvh, csvl, header)
   csvh:write (lcsv.toCsvLine (csvl, header) .. "\n")
 end
 function lcsv.writeRawAll (csvh, t)
-  csvh:write (lcsv.newCsv (t))
+  csvh:write (lcsv.newCsv (t) .. "\n")
 end
 function lcsv.writeAll (csvh, csvt, header)
-  csvh:write (lcsv.toCsv (csvt, header))
+  csvh:write (lcsv.toCsv (csvt, header) .. "\n")
 end
 
 -- Return
