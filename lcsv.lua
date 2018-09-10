@@ -81,11 +81,11 @@ function lcsv.parseAll (lines, hasHeader)
 end
 
 -- Reading
-function lcsv.readHeader (csvh, doMove)
+function lcsv.readHeader (csvh, move)
   local cur = csvh:seek "cur"
   csvh:seek "set"
   local header = lcsv.parseLine (csvh:read "*l")
-  if not doMove then csvh:seek ("set", cur) end
+  if move then csvh:seek ("set", cur) end
   return header
 end
 function lcsv.readLine (csvh, header)
