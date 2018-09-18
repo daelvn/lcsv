@@ -5,7 +5,11 @@
 local lcsv = {}
 
 -- Source handling
-function lcsv.open (file, mode) return io.open (file, mode or "r+") end
+function lcsv.open (file, mode)
+  local handle = io.open (file, mode or "r+")
+  getmetatable (handle).filename = file
+  return handle
+end
 
 -- Parsing
 local function mapLineToHeader (csvl, header)

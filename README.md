@@ -5,6 +5,9 @@ Lua CSV parsing library.
 $ sudo luarocks install lcsv
 ```
 ## Documentation
+### Filenames
+#### `getmetatable (lcsv.open (string:file, [string:mode])).name -> string:file`
+Used to get the filename from handles.
 ### Source handling
 #### `lcsv.open (string:file, [string:mode]) -> File:csvh`
 Opens a .csv file. It defaults to "r+" mode.

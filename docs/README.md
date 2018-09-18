@@ -5,6 +5,9 @@ Lua CSV parsing library.
 $ sudo luarocks install lcsv
 ```
 ## Documentation
+### Filenames
+#### `getmetatable (lcsv.open (string:file, [string:mode])).name -> string:file`
+Used to get the filename from handles.
 ### Source handling
 #### `lcsv.open (string:file, [string:mode]) -> File:csvh`
 Opens a .csv file. It defaults to "r+" mode.
@@ -20,6 +23,8 @@ It will parse a single line of CSV into a table, optionally with a header.
 #### `lcsv.parseAll (table:lines, [boolean:hasHeader]) -> table:csvt, [table:header]`
 It parses a table of CSV lines into a table, and if specified, will use the first line as header.
 ### Reading
+#### `lcsv.readHeader (File:csvh, [boolean:move]) -> table:header`
+Reads the first line as header. If `move` is set to true, it will go back to the original position, otherwise sets the cursor at the next line of the header. 
 #### `lcsv.readLine (File:csvh, [table:header]) -> table:csvl`
 It will read the next line in the file handle and parse it into a CSV line.
 #### `lcsv.readAll (File:csvh, [boolean:hasHeader]) -> table:csvt, [table:header]`
