@@ -6,7 +6,7 @@ $ sudo luarocks install lcsv
 ```
 ## Documentation
 ### Filenames
-#### `getmetatable (lcsv.open (string:file, [string:mode])).name -> string:file`
+#### `getmetatable (lcsv.open (string:file, [string:mode])).filename -> string:file`
 Used to get the filename from handles.
 ### Source handling
 #### `lcsv.open (string:file, [string:mode]) -> File:csvh`
