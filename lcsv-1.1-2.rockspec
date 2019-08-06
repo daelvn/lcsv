@@ -1,5 +1,5 @@
 package = "lcsv"
-version = "1.1-1"
+version = "1.1-2"
 
 source = {
   url = "git://github.com/daelvn/lcsv",
@@ -13,7 +13,6 @@ description = {
     to them in a much easier manner.
   ]],
   homepage = "https://lcsv.daelvn.ga/",
-  license  = "MIT/X11"
 }
 
 dependencies = {

@@ -62,5 +62,4 @@ Wrapper around `.newCsv` that writes to the document.
 #### `lscv.writeAll (File:csvh, table:csvt, [table:header])`
 Wrapper around `.toCsv` that will write into the document.
 ## License
-This project is licensed under MIT.
-Cristian Muñiz (c) 2018
+This project is released to the public domain.
